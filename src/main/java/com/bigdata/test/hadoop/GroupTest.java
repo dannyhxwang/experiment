@@ -20,7 +20,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class GroupApp {
+public class GroupTest {
     static final String INPUT_PATH = "hdfs://namenode:8020/input";
     static final String OUT_PATH = "hdfs://namenode:8020/out";
     public static void main(String[] args) throws Exception {
@@ -30,7 +30,7 @@ public class GroupApp {
             fileSystem.delete(new Path(OUT_PATH), true);
         }
 
-        final Job job = new Job(config, GroupApp.class.getSimpleName());
+        final Job job = new Job(config, GroupTest.class.getSimpleName());
 
         FileInputFormat.setInputPaths(job, INPUT_PATH);
         job.setInputFormatClass(TextInputFormat.class);
