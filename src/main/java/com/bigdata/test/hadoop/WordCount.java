@@ -32,6 +32,7 @@ public class WordCount {
 
 
         Job job = new Job(conf, WordCount.class.getSimpleName());
+        job.setJarByClass(WordCount.class);
 
         //1.1 输入目录在哪里
         FileInputFormat.setInputPaths(job, INPUT_PATH);
