@@ -11,8 +11,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-client:2.0.0-cdh4.3.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.hive:hive-jdbc:0.10.0-cdh4.7.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.hadoop:hadoop-client:2.5.0-cdh5.3.2" level="project" />
   </component>
 </module>
 
