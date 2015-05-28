@@ -4,7 +4,7 @@ package com.bigdata.test.hadoop;
  * Created by wanghaixing on 14-10-31.
  */
 public class Test1 {
-    public void main(String[] args) {
+    public static void main(String[] args) {
         System.out.println("hello hadoop.");
     }
 }
