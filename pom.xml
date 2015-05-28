@@ -43,7 +43,7 @@
 
                     <archive>
                         <manifest>
-                            <mainClass>com.bigdata.test.hadoop.Test1</mainClass>
+                            <mainClass>com.bigdata.test.hadoop.GroupTest</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
