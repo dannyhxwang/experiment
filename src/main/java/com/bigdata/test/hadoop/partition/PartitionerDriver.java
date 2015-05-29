@@ -52,7 +52,7 @@ public class PartitionerDriver extends Configured implements Tool {
         }
 
         job.setReducerClass(Reducer.class);
-        job.setNumReduceTasks(2);
+        job.setNumReduceTasks(3);
         FileOutputFormat.setOutputPath(job, out);
         job.setOutputFormatClass(TextOutputFormat.class);
         job.setOutputKeyClass(Text.class);
