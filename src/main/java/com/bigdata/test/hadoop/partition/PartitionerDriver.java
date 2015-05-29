@@ -46,8 +46,8 @@ public class PartitionerDriver extends Configured implements Tool {
             MyInputSampler.Sampler<Text, Text> sampler = new MyInputSampler.RandomSampler<Text, Text>(0.1, 20, 3);
             MyInputSampler.writePartitionFile(job, sampler);
 
-            String partitionFile = TotalOrderPartitioner.getPartitionFile(getConf());
-            URI partitionURI = new URI(partitionFile+"#"+TotalOrderPartitioner.DEFAULT_PATH);
+            String partitionFile = TotalOrderPartitioner.getPartitionFile(conf);
+            URI partitionURI = new URI(partitionFile + "#" + TotalOrderPartitioner.DEFAULT_PATH);
             job.addCacheArchive(partitionURI);
         }
 
@@ -62,7 +62,7 @@ public class PartitionerDriver extends Configured implements Tool {
     }
 
     public static void main(String[] args) throws Exception {
-        ToolRunner.run(new Configuration(), new PartitionerDriver(),args);
+        ToolRunner.run(new Configuration(), new PartitionerDriver(), args);
     }
 
 
