@@ -52,6 +52,10 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
 
+/**
+ * Utility for collecting samples and writing a partition file for
+ * {@link TotalOrderPartitioner}.
+ */
 @InterfaceAudience.Public
 @InterfaceStability.Stable
 public class MyInputSampler<K,V> extends Configured implements Tool  {
@@ -324,7 +328,12 @@ public class MyInputSampler<K,V> extends Configured implements Tool  {
         }
     }
 
-
+    /**
+     * Write a partition file for the given job, using the Sampler provided.
+     * Queries the sampler for a sample keyset, sorts by the output key
+     * comparator, selects the keys for each rank, and writes to the destination
+     * returned from {@link TotalOrderPartitioner#getPartitionFile}.
+     */
     @SuppressWarnings("unchecked") // getInputFormat, getOutputKeyComparator
     public static <K,V> void writePartitionFile(Job job, Sampler<K,V> sampler)
             throws IOException, ClassNotFoundException, InterruptedException {
@@ -432,4 +441,5 @@ public class MyInputSampler<K,V> extends Configured implements Tool  {
         System.exit(res);
     }
 }
+
 

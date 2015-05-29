@@ -46,13 +46,13 @@ public class PartitionerDriver extends Configured implements Tool {
             MyInputSampler.Sampler<Text, Text> sampler = new MyInputSampler.RandomSampler<Text, Text>(0.1, 20, 3);
             MyInputSampler.writePartitionFile(job, sampler);
 
-            String partitionFile = TotalOrderPartitioner.getPartitionFile(conf);
+            String partitionFile = TotalOrderPartitioner.getPartitionFile(getConf());
             URI partitionURI = new URI(partitionFile + "#" + TotalOrderPartitioner.DEFAULT_PATH);
             job.addCacheArchive(partitionURI);
         }
 
         job.setReducerClass(Reducer.class);
-        job.setNumReduceTasks(3);
+        job.setNumReduceTasks(2);
         FileOutputFormat.setOutputPath(job, out);
         job.setOutputFormatClass(TextOutputFormat.class);
         job.setOutputKeyClass(Text.class);
@@ -65,5 +65,5 @@ public class PartitionerDriver extends Configured implements Tool {
         ToolRunner.run(new Configuration(), new PartitionerDriver(), args);
     }
 
-
 }
+
