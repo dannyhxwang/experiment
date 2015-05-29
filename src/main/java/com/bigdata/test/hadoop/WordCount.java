@@ -74,7 +74,7 @@ public class WordCount {
      * VALUEOUT	即v2		表示每一行中的每个单词的出现次数，固定值1
      */
     class WordCountMapper extends Mapper<LongWritable, Text, Text, LongWritable> {
-        protected void map(LongWritable k1, Text v1, Context ctx) throws IOException ,InterruptedException {
+        public void map(LongWritable k1, Text v1, Context ctx) throws IOException ,InterruptedException {
             String[] splited = v1.toString().split("\t");
             for (String word : splited) {
                 ctx.write(new Text(word), new LongWritable(1L));
@@ -89,7 +89,7 @@ public class WordCount {
      * VALUEOUT	即v3		表示整个文件中不同单词出现的总次数
      */
     class WordCountReducer extends Reducer<Text, LongWritable, Text, LongWritable> {
-        protected void reduce(Text k2, Iterable<LongWritable> values, Context ctx) throws IOException ,InterruptedException {
+        public void reduce(Text k2, Iterable<LongWritable> values, Context ctx) throws IOException ,InterruptedException {
             long sum = 0L;
             for (LongWritable value : values) {
                 sum += value.get();

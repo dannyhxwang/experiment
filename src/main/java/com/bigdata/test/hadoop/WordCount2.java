@@ -19,6 +19,24 @@ public class WordCount2 {
     static final String INPUT_PATH = "hdfs://namenode:8020/input/hello";
     static final String OUTPUT_PATH = "hdfs://namenode:8020/out";
 
+    public static void main(String[] args) throws Exception {
+        Configuration conf = new Configuration();
+        final FileSystem fileSystem = FileSystem.get(new URI(INPUT_PATH), conf);
+        if(fileSystem.exists(new Path(OUTPUT_PATH))) {
+            fileSystem.delete(new Path(OUTPUT_PATH), true);
+        }
+        Job job = new Job(conf, "word count");
+        job.setJarByClass(WordCount2.class);
+        job.setMapperClass(TokenizerMapper.class);
+//        job.setCombinerClass(IntSumReducer.class);
+        job.setReducerClass(IntSumReducer.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(IntWritable.class);
+        FileInputFormat.addInputPath(job, new Path(INPUT_PATH));
+        FileOutputFormat.setOutputPath(job, new Path(OUTPUT_PATH));
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+
     public static class TokenizerMapper extends Mapper<Object, Text, Text, IntWritable>{
         private final static IntWritable one = new IntWritable(1);
         private Text word = new Text();
@@ -41,23 +59,5 @@ public class WordCount2 {
             result.set(sum);
             context.write(key, result);
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        Configuration conf = new Configuration();
-        final FileSystem fileSystem = FileSystem.get(new URI(INPUT_PATH), conf);
-        if(fileSystem.exists(new Path(OUTPUT_PATH))) {
-            fileSystem.delete(new Path(OUTPUT_PATH), true);
-        }
-        Job job = new Job(conf, "word count");
-        job.setJarByClass(WordCount2.class);
-        job.setMapperClass(TokenizerMapper.class);
-//        job.setCombinerClass(IntSumReducer.class);
-        job.setReducerClass(IntSumReducer.class);
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
-        FileInputFormat.addInputPath(job, new Path(INPUT_PATH));
-        FileOutputFormat.setOutputPath(job, new Path(OUTPUT_PATH));
-        System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 }
