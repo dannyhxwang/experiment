@@ -12,6 +12,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.mapreduce.lib.partition.TotalOrderPartitioner;
 import org.apache.hadoop.util.Tool;
+import org.apache.hadoop.util.ToolRunner;
 
 import java.net.URI;
 
@@ -57,6 +58,10 @@ public class PartitionerDriver extends Configured implements Tool {
         job.setOutputValueClass(Text.class);
 
         return job.waitForCompletion(true) ? 0 : -1;
+    }
+
+    public static void main(String[] args) throws Exception {
+        ToolRunner.run(new Configuration(), new PartitionerDriver(),args);
     }
 
 
